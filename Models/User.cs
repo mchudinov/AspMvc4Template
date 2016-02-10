@@ -6,6 +6,13 @@ namespace Models
 {
     public class User
     {
+        public User()
+        {
+            Id = Guid.NewGuid();
+            DateTimeCreated = DateTime.Now;
+            Widgets = new HashSet<Widget>();
+        }
+
         [Key]
         public Guid Id  { get; set; }
 
@@ -20,6 +27,6 @@ namespace Models
         [Required]
         public DateTime DateTimeCreated { get; set; }
 
-        public IEnumerable<Widget> Widgets { get; set; }
+        public virtual ICollection<Widget> Widgets { get; set; }
     }
 }

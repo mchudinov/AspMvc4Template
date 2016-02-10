@@ -5,6 +5,12 @@ namespace Models
 {
     public class Widget
     {
+        public Widget()
+        {
+            Id = Guid.NewGuid();
+            DateTimeCreated = DateTime.Now;
+        }
+
         [Key]
         public Guid Id { get; set; }
 
@@ -19,6 +25,6 @@ namespace Models
         public float Price { get; set; }
 
         [Required]
-        public User User { get; set; }
+        public virtual User User { get; set; }
     }
 }
