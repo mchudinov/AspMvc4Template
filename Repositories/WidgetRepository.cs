@@ -5,37 +5,37 @@ using Models;
 
 namespace Repositories
 {
-    public class UserRepository : IUserRepository
+    public class WidgetRepository : IWidgetRepository
     {
-        public IList<User> GetAllUsers()
+        public IList<Widget> GetAllWidgets()
         {
             using (var db = new AppDbContext())
             {
-                return db.Users.ToList();
+                return db.Widgets.ToList();
             }
         }
 
-        public User GetUser(Guid guid)
+        public Widget GetWidget(Guid guid)
         {
             using (var db = new AppDbContext())
             {
-                return db.Users.First(u => u.Id == guid);
+                return db.Widgets.First(u => u.Id == guid);
             }
         }
 
-        public IList<User> GetUsers(string filter)
+        public IList<Widget> GetWidgets(string filter)
         {
             using (var db = new AppDbContext())
             {
-                return db.Users.Where(u => u.Nickname.ToLower().Contains(filter.ToLower())).ToList();
+                return db.Widgets.Where(u => u.Name.ToLower().Contains(filter.ToLower())).ToList();
             }
         }
 
-        public void SaveUser(User user)
+        public void SaveWidget(Widget widget)
         {
             using (var db = new AppDbContext())
             {
-                db.Users.Add(user);
+                db.Widgets.Add(widget);
                 db.SaveChangesAsync();
             }
         }

@@ -6,9 +6,9 @@ namespace Repositories
 {
     public interface IWidgetRepository
     {
-        IEnumerable<Widget> GetAllWidgets();
+        IList<Widget> GetAllWidgets();
 
-        IEnumerable<Widget> GetWidgets(string filter);
+        IList<Widget> GetWidgets(string filter);
 
         Widget GetWidget(Guid guid);
 

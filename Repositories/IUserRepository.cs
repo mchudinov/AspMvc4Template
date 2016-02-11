@@ -6,9 +6,9 @@ namespace Repositories
 {
     public interface IUserRepository
     {
-        IEnumerable<User> GetAllUsers();
+        IList<User> GetAllUsers();
 
-        IEnumerable<User> GetUsers(string filter);
+        IList<User> GetUsers(string filter);
         
         User GetUser(Guid guid);
 
