@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WidgetController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -129,6 +130,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Widget\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
@@ -138,6 +140,10 @@
     <ProjectReference Include="..\Repositories\Repositories.csproj">
       <Project>{b4d85835-310e-4c37-98ec-e4966d843e37}</Project>
       <Name>Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UseCases\UseCases.csproj">
+      <Project>{57092239-afbd-4ee2-bbea-7fa0d4466f94}</Project>
+      <Name>UseCases</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
