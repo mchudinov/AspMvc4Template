@@ -1,34 +1,52 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using Models;
 using Repositories;
+using UseCases;
 
 namespace Gui.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserRepository _repo;
+        private readonly IUserCase _usercase;
 
-        public UserController(IUserRepository repo)
+        public UserController(IUserRepository repo, IUserCase ucase)
         {
             _repo = repo;
+            _usercase = ucase;
         }
 
-        // GET: All Users
+        [HttpGet]
         public ActionResult Index()
         {
             return View(_repo.GetAllUsers());
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(User newUser)
         {
             try
             {
-                // TODO: Add insert logic here
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var newId = _usercase.CreateUser(newUser.Nickname, newUser.Email);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(newUser);
+                }
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                return View(newUser);
             }
         }
     }

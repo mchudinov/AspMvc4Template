@@ -11,7 +11,7 @@ namespace Repositories
         {
             using (var db = new AppDbContext())
             {
-                return db.Widgets.ToList();
+                return db.Widgets.AsNoTracking().ToList();
             }
         }
 
@@ -27,7 +27,7 @@ namespace Repositories
         {
             using (var db = new AppDbContext())
             {
-                return db.Widgets.Where(u => u.Name.ToLower().Contains(filter.ToLower())).ToList();
+                return db.Widgets.AsNoTracking().Where(u => u.Name.ToLower().Contains(filter.ToLower())).ToList();
             }
         }
 

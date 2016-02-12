@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Models;
 
 namespace Repositories
@@ -12,6 +13,6 @@ namespace Repositories
         
         User GetUser(Guid guid);
 
-        void SaveUser(User user);
+        Task SaveUser(User user);
     }
 }

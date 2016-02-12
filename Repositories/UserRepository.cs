@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Models;
 
 namespace Repositories
@@ -11,7 +12,7 @@ namespace Repositories
         {
             using (var db = new AppDbContext())
             {
-                return db.Users.ToList();
+                return db.Users.AsNoTracking().OrderBy(u=>u.Nickname).ToList();
             }
         }
 
@@ -27,16 +28,16 @@ namespace Repositories
         {
             using (var db = new AppDbContext())
             {
-                return db.Users.Where(u => u.Nickname.ToLower().Contains(filter.ToLower())).ToList();
+                return db.Users.AsNoTracking().Where(u => u.Nickname.ToLower().Contains(filter.ToLower())).OrderBy(u => u.Nickname).ToList();
             }
         }
 
-        public void SaveUser(User user)
+        public async Task SaveUser(User user)
         {
             using (var db = new AppDbContext())
             {
                 db.Users.Add(user);
-                db.SaveChangesAsync();
+                await db.SaveChangesAsync();
             }
         }
     }

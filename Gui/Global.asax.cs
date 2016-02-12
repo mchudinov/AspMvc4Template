@@ -5,6 +5,7 @@ using Repositories;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
+using UseCases;
 
 namespace Gui
 {
@@ -19,7 +20,9 @@ namespace Gui
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
             container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
+            container.Register<IUserCase, UserCase>(Lifestyle.Scoped);
             container.Register<IWidgetRepository, WidgetRepository>(Lifestyle.Scoped);
+
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             container.RegisterMvcIntegratedFilterProvider();
             container.Verify();
