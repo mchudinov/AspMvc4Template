@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
+using Common;
 using Models;
+using NLog;
 using Repositories;
 using UseCases;
 
@@ -8,6 +10,7 @@ namespace Gui.Controllers
 {
     public class UserController : Controller
     {
+        private static readonly Logger log = LogManager.GetCurrentClassLogger();
         private readonly IUserRepository _repo;
         private readonly IUserCase _usercase;
 
@@ -36,7 +39,7 @@ namespace Gui.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var newId = _usercase.CreateUser(newUser.Nickname, newUser.Email);
+                    _usercase.CreateUser(newUser.Nickname, newUser.Email);   
                     return RedirectToAction("Index");
                 }
                 else
@@ -46,6 +49,7 @@ namespace Gui.Controllers
             }
             catch (Exception e)
             {
+                log.Error(e.Message);
                 return View(newUser);
             }
         }
