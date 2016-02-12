@@ -1,88 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Models;
+using NLog;
+using Repositories;
+using UseCases;
 
 namespace Gui.Controllers
 {
     public class WidgetController : Controller
     {
-        // GET: Widget
-        public ActionResult Index()
+        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+        private readonly IWidgetRepository _repo;
+        private readonly IWidgetCase _case;
+
+        public WidgetController(IWidgetRepository repo, IWidgetCase ucase)
         {
-            return View();
+            _repo = repo;
+            _case = ucase;
         }
 
-        // GET: Widget/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Widget/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Widget/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Widget newWidget)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    _case.CreateWidget(newWidget.Name, newWidget.Price, 123);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(newWidget);
+                }
             }
-            catch
+            catch (Exception e)
             {
-                return View();
-            }
-        }
-
-        // GET: Widget/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Widget/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Widget/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Widget/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                log.Error(e.Message);
+                return View(newWidget);
             }
         }
     }

@@ -12,12 +12,12 @@ namespace Gui.Controllers
     {
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
         private readonly IUserRepository _repo;
-        private readonly IUserCase _usercase;
+        private readonly IUserCase _case;
 
         public UserController(IUserRepository repo, IUserCase ucase)
         {
             _repo = repo;
-            _usercase = ucase;
+            _case = ucase;
         }
 
         [HttpGet]
@@ -39,7 +39,7 @@ namespace Gui.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _usercase.CreateUser(newUser.Nickname, newUser.Email);   
+                    _case.CreateUser(newUser.Nickname, newUser.Email);   
                     return RedirectToAction("Index");
                 }
                 else
