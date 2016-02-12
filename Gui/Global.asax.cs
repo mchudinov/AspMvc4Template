@@ -30,9 +30,9 @@ namespace Gui
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
             container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
-            container.Register<IUserCase, UserCase>(Lifestyle.Scoped);
             container.Register<IWidgetRepository, WidgetRepository>(Lifestyle.Scoped);
-
+            container.Register<IUserCase, UserCase>(Lifestyle.Scoped);
+            container.Register<IWidgetCase, WidgetCase>(Lifestyle.Scoped);
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             container.RegisterMvcIntegratedFilterProvider();
             container.Verify();
@@ -56,7 +56,7 @@ namespace Gui
                 log.Error(err.ToString());
                 Server.ClearError();
 
-                string url = "~/Feilside.aspx";
+                //string url = "~/Error.aspx";
                 if (null != Context.Session)
                 {
                     //Session[SessionIdHolder.FEILSIDE_CALLSTACK] = Regex.Replace(err.ToString(), @"\r\n?|\n", "<br />");

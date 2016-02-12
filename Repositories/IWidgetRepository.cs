@@ -10,7 +10,7 @@ namespace Repositories
 
         IList<Widget> GetWidgets(string filter);
 
-        Widget GetWidget(Guid guid);
+        Widget GetWidget(IFormattable id);
 
         void SaveWidget(Widget widget);
     }

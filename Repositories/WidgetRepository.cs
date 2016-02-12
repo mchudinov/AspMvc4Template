@@ -15,11 +15,11 @@ namespace Repositories
             }
         }
 
-        public Widget GetWidget(Guid guid)
+        public Widget GetWidget(IFormattable id)
         {
             using (var db = new AppDbContext())
             {
-                return db.Widgets.First(u => u.Id == guid);
+                return db.Widgets.First(u => u.Id == (Guid)id);
             }
         }
 

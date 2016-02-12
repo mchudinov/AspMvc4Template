@@ -11,7 +11,7 @@ namespace Repositories
 
         IList<User> GetUsers(string filter);
         
-        User GetUser(Guid guid);
+        User GetUser(IFormattable id);
 
         Task SaveUser(User user);
     }

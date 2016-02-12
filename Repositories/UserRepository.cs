@@ -18,11 +18,11 @@ namespace Repositories
             }
         }
 
-        public User GetUser(Guid guid)
+        public User GetUser(IFormattable id)
         {
             using (var db = new AppDbContext())
             {
-                return db.Users.First(u => u.Id == guid);
+                return db.Users.First(u => u.Id == (Guid)id);
             }
         }
 
