@@ -53,5 +53,12 @@ namespace Gui.Controllers
                 return View(newUser);
             }
         }
+
+        [HttpDelete]
+        public ActionResult Delete(IFormattable id)
+        {
+            _case.DeleteUser(id);
+            return RedirectToAction("Index");
+        }
     }
 }

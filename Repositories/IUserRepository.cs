@@ -14,5 +14,7 @@ namespace Repositories
         User GetUser(IFormattable id);
 
         Task SaveUser(User user);
+
+        Task DeleteUser(IFormattable id);
     }
 }

@@ -4,10 +4,43 @@
 }
 
 <h2>Users</h2>
-@foreach (var u in Model)
-{
-    <div>
-        @u.Nickname Email: @u.Email
-    </div>
-}
-
+<table border="1">
+    <thead>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var u in Model)
+    {
+        <tr>
+            <td>
+                @u.Nickname
+            </td>
+            <td>
+                @u.Email
+            </td>
+            <td>
+                Details - Edit - 
+                @Ajax.ActionLink(
+                    linkText:"Delete", 
+                    actionName:"Delete", 
+                    controllerName:"User", 
+                    routeValues: new { Id = u.Id }, 
+                    htmlAttributes: null, 
+                    ajaxOptions:new AjaxOptions { HttpMethod = "Post"}
+                )
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@Html.ActionLink("Add new user", "Create")

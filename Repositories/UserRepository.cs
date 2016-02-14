@@ -42,5 +42,14 @@ namespace Repositories
                 await db.SaveChangesAsync();
             }
         }
+
+        public async Task DeleteUser(IFormattable id)
+        {
+            using (var db = new AppDbContext())
+            {
+                db.Users.Remove(GetUser(id));
+                await db.SaveChangesAsync();
+            }
+        }
     }
 }

@@ -26,5 +26,10 @@ namespace UseCases
             _repo.SaveUser(user);
             return user.Id;
         }
+
+        public void DeleteUser(IFormattable id)
+        {
+            _repo.DeleteUser(id);
+        }
     }
 }
