@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Web.Mvc;
 using Common;
 using Models;
@@ -59,6 +60,21 @@ namespace Gui.Controllers
         {
             _case.DeleteUser(id);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = _repo.GetUser(new Guid(id));
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
     }
 }

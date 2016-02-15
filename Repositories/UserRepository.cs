@@ -22,7 +22,7 @@ namespace Repositories
         {
             using (var db = new AppDbContext())
             {
-                return db.Users.First(u => u.Id == (Guid)id);
+                return db.Users.FirstOrDefault(u => u.Id == (Guid)id);
             }
         }
 

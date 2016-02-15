@@ -29,14 +29,10 @@
                 @u.Email
             </td>
             <td>
-                Details - Edit - 
-                @Ajax.ActionLink(
-                    linkText:"Delete", 
-                    actionName:"Delete", 
-                    controllerName:"User", 
-                    routeValues: new { Id = u.Id }, 
-                    htmlAttributes: null, 
-                    ajaxOptions:new AjaxOptions { HttpMethod = "Post"}
+                @Html.ActionLink(linkText: "Details", actionName:"Details", routeValues: new {id=u.Id} )
+                Edit - 
+                @Ajax.ActionLink(linkText:"Delete", actionName:"Delete", controllerName:"User", routeValues: new {id = u.Id}, htmlAttributes: null,
+                    ajaxOptions:new AjaxOptions {Confirm = "Are you sure you want to delete this entry?", HttpMethod = "Post"}
                 )
             </td>
         </tr>
