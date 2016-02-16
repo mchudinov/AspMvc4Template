@@ -47,7 +47,9 @@ namespace Repositories
         {
             using (var db = new AppDbContext())
             {
-                db.Users.Remove(GetUser(id));
+                var user = GetUser(id);
+                db.Users.Attach(user);
+                db.Users.Remove(user);
                 await db.SaveChangesAsync();
             }
         }
