@@ -55,10 +55,21 @@ namespace Gui.Controllers
             }
         }
 
-        [HttpDelete]
-        public ActionResult Delete(IFormattable id)
+        [HttpGet]
+        public ActionResult Delete(string id)
         {
-            _case.DeleteUser(id);
+            User user = _repo.GetUser(new Guid(id));
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            _case.DeleteUser(new Guid(id));
             return RedirectToAction("Index");
         }
 
