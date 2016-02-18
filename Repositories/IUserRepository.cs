@@ -9,7 +9,7 @@ namespace Repositories
     {
         IList<User> GetAllUsers();
 
-        IList<User> GetUsers(string filter);
+        IList<User> GetUsers(string searchString);
         
         User GetUser(IFormattable id);
 

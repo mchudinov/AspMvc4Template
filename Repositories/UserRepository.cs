@@ -26,11 +26,11 @@ namespace Repositories
             }
         }
 
-        public IList<User> GetUsers(string filter)
+        public IList<User> GetUsers(string searchString)
         {
             using (var db = new AppDbContext())
             {
-                return db.Users.AsNoTracking().Where(u => u.Nickname.ToLower().Contains(filter.ToLower())).OrderBy(u => u.Nickname).ToList();
+                return db.Users.AsNoTracking().Where(u => u.Nickname.ToLower().Contains(searchString.ToLower())).OrderBy(u => u.Nickname).ToList();
             }
         }
 
