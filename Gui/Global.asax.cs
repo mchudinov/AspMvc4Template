@@ -7,6 +7,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Gui.Controllers;
 using NLog;
 using Repositories;
 using SimpleInjector;
@@ -61,9 +62,9 @@ namespace Gui
                     //HttpContext.Current.Response.StatusCode = (int) HttpStatusCode.Moved;
                     //HttpContext.Current.Response.Redirect(url, true);
 
-                    err.Append(
-                        $"Session_Start. Identity name:[{Thread.CurrentPrincipal.Identity.Name}] IsAuthenticated:{Thread.CurrentPrincipal.Identity.IsAuthenticated}");
+                    err.Append($"Session: Identity name:[{Thread.CurrentPrincipal.Identity.Name}] IsAuthenticated:{Thread.CurrentPrincipal.Identity.IsAuthenticated}");
                 }
+                _log.Error(err.ToString());
 
                 var routeData = new RouteData();
                 routeData.Values.Add("controller", "ErrorPage");
@@ -78,7 +79,10 @@ namespace Gui
                 {
                     routeData.Values.Add("statusCode", 500);
                 }
-                _log.Error(err.ToString());
+                Response.TrySkipIisCustomErrors = true;
+                IController controller = new ErrorPageController();
+                controller.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
+                Response.End();
             }
         }
 
