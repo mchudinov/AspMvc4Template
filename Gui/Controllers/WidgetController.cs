@@ -2,20 +2,17 @@
 using System.Web.Mvc;
 using Models;
 using NLog;
-using Repositories;
 using UseCases;
 
 namespace Gui.Controllers
 {
     public class WidgetController : Controller
     {
-        private static readonly Logger log = LogManager.GetCurrentClassLogger();
-        private readonly IWidgetRepository _repo;
+        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private readonly IWidgetCase _case;
 
-        public WidgetController(IWidgetRepository repo, IWidgetCase ucase)
+        public WidgetController(IWidgetCase ucase)
         {
-            _repo = repo;
             _case = ucase;
         }
 
@@ -32,7 +29,7 @@ namespace Gui.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _case.CreateWidget(newWidget.Name, newWidget.Price, 123);
+                    _case.CreateWidget(newWidget.Name, newWidget.Price, newWidget.User.Id);
                     return RedirectToAction("Index");
                 }
                 else
@@ -42,7 +39,7 @@ namespace Gui.Controllers
             }
             catch (Exception e)
             {
-                log.Error(e.Message);
+                _log.Error(e.Message);
                 return View(newWidget);
             }
         }

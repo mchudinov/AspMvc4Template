@@ -6,6 +6,7 @@ using Repositories;
 
 namespace UseCases
 {
+    [Log]
     [LogException]
     public class UserCase : IUserCase
     {

@@ -7,6 +7,7 @@ using Models;
 
 namespace Repositories
 {
+    [Log]
     [LogException]
     public class UserRepository : IUserRepository
     {

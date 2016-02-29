@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common;
 using Models;
 
 namespace Repositories
 {
+    [Log]
+    [LogException]
     public class WidgetRepository : IWidgetRepository
     {
         public Widget GetWidget(Guid id)

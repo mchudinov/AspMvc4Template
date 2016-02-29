@@ -12,13 +12,12 @@ using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using UseCases;
-using System.Web;
 
 namespace Gui
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
 
         protected void Application_Start()
         {
@@ -53,10 +52,10 @@ namespace Gui
                 if (null != ex.InnerException)
                     err.Append("\nInner Error Message:" + ex.InnerException.Message);
                 err.Append("\n\nStack Trace:" + ex.StackTrace);
-                log.Error(err.ToString());
+                _log.Error(err.ToString());
                 Server.ClearError();
 
-                //string url = "~/Error.aspx";
+                //string url = "~/Error.html";
                 if (null != Context.Session)
                 {
                     //Session[SessionIdHolder.FEILSIDE_CALLSTACK] = Regex.Replace(err.ToString(), @"\r\n?|\n", "<br />");
@@ -69,7 +68,7 @@ namespace Gui
         protected void Session_Start(object sender, EventArgs e)
         {
             var identity = Thread.CurrentPrincipal.Identity;
-            log.Info("Session_Start. Identity name:[{0}] IsAuthenticated:{1}", identity.Name, identity.IsAuthenticated);
+            _log.Info("Session_Start. Identity name:[{0}] IsAuthenticated:{1}", identity.Name, identity.IsAuthenticated);
         }
 
         protected void Session_End(object sender, EventArgs e) {}

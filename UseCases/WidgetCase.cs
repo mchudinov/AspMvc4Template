@@ -5,6 +5,7 @@ using Repositories;
 
 namespace UseCases
 {
+    [Log]
     [LogException]
     public class WidgetCase : IWidgetCase
     {

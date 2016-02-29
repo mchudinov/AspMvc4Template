@@ -1,30 +1,26 @@
 ﻿using System;
 using System.Net;
 using System.Web.Mvc;
-using Common;
 using Models;
 using NLog;
-using Repositories;
 using UseCases;
 
 namespace Gui.Controllers
 {
     public class UserController : Controller
     {
-        private static readonly Logger log = LogManager.GetCurrentClassLogger();
-        private readonly IUserRepository _repo;
+        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private readonly IUserCase _case;
 
-        public UserController(IUserRepository repo, IUserCase ucase)
+        public UserController(IUserCase ucase)
         {
-            _repo = repo;
             _case = ucase;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View(_repo.GetUsers());
+            return View(_case.GetUsers());
         }
 
         [HttpGet]
@@ -50,7 +46,7 @@ namespace Gui.Controllers
             }
             catch (Exception e)
             {
-                log.Error(e.Message);
+                _log.Error(e.Message);
                 return View(newUser);
             }
         }
@@ -58,7 +54,7 @@ namespace Gui.Controllers
         [HttpGet]
         public ActionResult Delete(string id)
         {
-            User user = _repo.GetUser(new Guid(id));
+            User user = _case.GetUser(new Guid(id));
             if (user == null)
             {
                 return HttpNotFound();
@@ -80,7 +76,7 @@ namespace Gui.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = _repo.GetUser(new Guid(id));
+            User user = _case.GetUser(new Guid(id));
             if (user == null)
             {
                 return HttpNotFound();

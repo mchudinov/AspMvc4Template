@@ -5,7 +5,7 @@ using PostSharp.Aspects;
 namespace Common
 {
     [Serializable]
-    public class LogExceptionAttribute : OnExceptionAspect //OnMethodBoundaryAspect
+    public class LogExceptionAttribute : OnExceptionAspect
     {
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
