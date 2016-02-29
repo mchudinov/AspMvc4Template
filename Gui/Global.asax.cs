@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using NLog;
@@ -52,16 +53,32 @@ namespace Gui
                 if (null != ex.InnerException)
                     err.Append("\nInner Error Message:" + ex.InnerException.Message);
                 err.Append("\n\nStack Trace:" + ex.StackTrace);
-                _log.Error(err.ToString());
                 Server.ClearError();
 
-                //string url = "~/Error.html";
                 if (null != Context.Session)
                 {
                     //Session[SessionIdHolder.FEILSIDE_CALLSTACK] = Regex.Replace(err.ToString(), @"\r\n?|\n", "<br />");
                     //HttpContext.Current.Response.StatusCode = (int) HttpStatusCode.Moved;
                     //HttpContext.Current.Response.Redirect(url, true);
+
+                    err.Append(
+                        $"Session_Start. Identity name:[{Thread.CurrentPrincipal.Identity.Name}] IsAuthenticated:{Thread.CurrentPrincipal.Identity.IsAuthenticated}");
                 }
+
+                var routeData = new RouteData();
+                routeData.Values.Add("controller", "ErrorPage");
+                routeData.Values.Add("action", "Error");
+                routeData.Values.Add("exception", ex);
+
+                if (ex.GetType() == typeof(HttpException))
+                {
+                    routeData.Values.Add("statusCode", ((HttpException)ex).GetHttpCode());
+                }
+                else
+                {
+                    routeData.Values.Add("statusCode", 500);
+                }
+                _log.Error(err.ToString());
             }
         }
 
