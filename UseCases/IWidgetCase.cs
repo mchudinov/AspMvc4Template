@@ -1,9 +1,16 @@
 ﻿using System;
+using Models;
 
 namespace UseCases
 {
     public interface IWidgetCase
     {
-        IFormattable CreateWidget(string name, float price, IFormattable userId);
+        Widget GetWidget(Guid id);
+
+        Guid CreateWidget(string name, float price, Guid userId);
+
+        void UpdateWidget(Widget widget);
+
+        void DeleteWidget(Guid id);
     }
 }

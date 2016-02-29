@@ -10,7 +10,7 @@ namespace Repositories
     [LogException]
     public class UserRepository : IUserRepository
     {
-        public IList<User> GetAllUsers()
+        public IList<User> GetUsers()
         {
             using (var db = new AppDbContext())
             {
@@ -18,11 +18,11 @@ namespace Repositories
             }
         }
 
-        public User GetUser(IFormattable id)
+        public User GetUser(Guid id)
         {
             using (var db = new AppDbContext())
             {
-                return db.Users.FirstOrDefault(u => u.Id == (Guid)id);
+                return db.Users.FirstOrDefault(u => u.Id == id);
             }
         }
 
@@ -43,7 +43,7 @@ namespace Repositories
             }
         }
 
-        public async Task DeleteUser(IFormattable id)
+        public async Task DeleteUser(Guid id)
         {
             using (var db = new AppDbContext())
             {

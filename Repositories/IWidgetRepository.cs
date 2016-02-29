@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Models;
 
 namespace Repositories
 {
     public interface IWidgetRepository
     {
-        IList<Widget> GetAllWidgets();
+        Widget GetWidget(Guid id);
 
-        IList<Widget> GetWidgets(string filter);
+        Task SaveWidget(Widget widget);
 
-        Widget GetWidget(IFormattable id);
-
-        void SaveWidget(Widget widget);
+        Task DeleteWidget(Guid id);
     }
 }

@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Models;
 
 namespace Repositories
 {
     public class WidgetRepository : IWidgetRepository
     {
-        public IList<Widget> GetAllWidgets()
-        {
-            using (var db = new AppDbContext())
-            {
-                return db.Widgets.AsNoTracking().ToList();
-            }
-        }
-
-        public Widget GetWidget(IFormattable id)
+        public Widget GetWidget(Guid id)
         {
             using (var db = new AppDbContext())
             {
@@ -23,20 +16,23 @@ namespace Repositories
             }
         }
 
-        public IList<Widget> GetWidgets(string filter)
-        {
-            using (var db = new AppDbContext())
-            {
-                return db.Widgets.AsNoTracking().Where(u => u.Name.ToLower().Contains(filter.ToLower())).ToList();
-            }
-        }
-
-        public void SaveWidget(Widget widget)
+        public async Task SaveWidget(Widget widget)
         {
             using (var db = new AppDbContext())
             {
                 db.Widgets.Add(widget);
-                db.SaveChangesAsync();
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteWidget(Guid id)
+        {
+            using (var db = new AppDbContext())
+            {
+                var widget = GetWidget(id);
+                db.Widgets.Attach(widget);
+                db.Widgets.Remove(widget);
+                await db.SaveChangesAsync();
             }
         }
     }

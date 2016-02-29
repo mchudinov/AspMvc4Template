@@ -17,7 +17,7 @@ namespace UseCases
             _repoU = repoU;
         }
 
-        public IFormattable CreateWidget(string name, float price, IFormattable userId)
+        public Guid CreateWidget(string name, float price, Guid userId)
         {
             var user = _repoU.GetUser(userId);
             var widget = new Widget()

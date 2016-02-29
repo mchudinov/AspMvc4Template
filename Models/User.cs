@@ -17,8 +17,7 @@ namespace Models
         public Guid Id  { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "Must be at least 5 charachters", MinimumLength = 5)]
-        [RegularExpression(@"^[^@]+@[^@]+\.[^@]+$", ErrorMessage = "Email must be correct formatted")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]

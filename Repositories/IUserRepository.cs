@@ -7,14 +7,14 @@ namespace Repositories
 {
     public interface IUserRepository
     {
-        IList<User> GetAllUsers();
+        IList<User> GetUsers();
 
         IList<User> GetUsers(string searchString);
         
-        User GetUser(IFormattable id);
+        User GetUser(Guid id);
 
         Task SaveUser(User user);
 
-        Task DeleteUser(IFormattable id);
+        Task DeleteUser(Guid id);
     }
 }
