@@ -24,7 +24,7 @@ namespace Gui.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(_repo.GetAllUsers());
+            return View(_repo.GetUsers());
         }
 
         [HttpGet]

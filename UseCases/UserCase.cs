@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Common;
 using Models;
 using Repositories;
@@ -15,7 +16,22 @@ namespace UseCases
             _repo = repo;
         }
 
-        public IFormattable CreateUser(string nickname, string email)
+        public IList<User> GetUsers()
+        {
+            return _repo.GetUsers();
+        }
+
+        public User GetUser(Guid id)
+        {
+            return _repo.GetUser(id);
+        }
+
+        public IList<User> GetUsers(string searchString)
+        {
+            return _repo.GetUsers(searchString);
+        }
+
+        public Guid CreateUser(string nickname, string email)
         {
             var user = new User()
             {
@@ -27,7 +43,12 @@ namespace UseCases
             return user.Id;
         }
 
-        public void DeleteUser(IFormattable id)
+        public void UpdateUser(User user)
+        {
+            _repo.SaveUser(user);
+        }
+
+        public void DeleteUser(Guid id)
         {
             _repo.DeleteUser(id);
         }

@@ -17,6 +17,11 @@ namespace UseCases
             _repoU = repoU;
         }
 
+        public Widget GetWidget(Guid id)
+        {
+            return _repoW.GetWidget(id);
+        }
+
         public Guid CreateWidget(string name, float price, Guid userId)
         {
             var user = _repoU.GetUser(userId);
@@ -29,6 +34,16 @@ namespace UseCases
 
             _repoW.SaveWidget(widget);
             return widget.Id;
+        }
+
+        public void UpdateWidget(Widget widget)
+        {
+            _repoW.SaveWidget(widget);
+        }
+
+        public void DeleteWidget(Guid id)
+        {
+            _repoW.DeleteWidget(id);
         }
     }
 }
