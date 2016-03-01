@@ -58,31 +58,30 @@ namespace Gui
 
                 if (null != Context.Session)
                 {
-                    //Session[SessionIdHolder.FEILSIDE_CALLSTACK] = Regex.Replace(err.ToString(), @"\r\n?|\n", "<br />");
-                    //HttpContext.Current.Response.StatusCode = (int) HttpStatusCode.Moved;
-                    //HttpContext.Current.Response.Redirect(url, true);
-
                     err.Append($"Session: Identity name:[{Thread.CurrentPrincipal.Identity.Name}] IsAuthenticated:{Thread.CurrentPrincipal.Identity.IsAuthenticated}");
                 }
                 _log.Error(err.ToString());
 
-                var routeData = new RouteData();
-                routeData.Values.Add("controller", "ErrorPage");
-                routeData.Values.Add("action", "Error");
-                routeData.Values.Add("exception", ex);
+                if (null != Context.Session)
+                {
+                    var routeData = new RouteData();
+                    routeData.Values.Add("controller", "ErrorPage");
+                    routeData.Values.Add("action", "Error");
+                    routeData.Values.Add("exception", ex);
 
-                if (ex.GetType() == typeof(HttpException))
-                {
-                    routeData.Values.Add("statusCode", ((HttpException)ex).GetHttpCode());
+                    if (ex.GetType() == typeof(HttpException))
+                    {
+                        routeData.Values.Add("statusCode", ((HttpException)ex).GetHttpCode());
+                    }
+                    else
+                    {
+                        routeData.Values.Add("statusCode", 500);
+                    }
+                    Response.TrySkipIisCustomErrors = true;
+                    IController controller = new ErrorPageController();
+                    controller.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
+                    Response.End();
                 }
-                else
-                {
-                    routeData.Values.Add("statusCode", 500);
-                }
-                Response.TrySkipIisCustomErrors = true;
-                IController controller = new ErrorPageController();
-                controller.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
-                Response.End();
             }
         }
 

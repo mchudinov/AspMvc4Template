@@ -1,12 +1,10 @@
 ﻿
-@model System.Web.Mvc.HandleErrorInfo
+@model Gui.Models.Error
 @{
-    ViewBag.Title = (!String.IsNullOrEmpty(ViewBag.StatusCode)) ? ViewBag.StatusCode : "500 Error";
+    ViewBag.Title = Model.StatusCode;
 }
 
-<h1 class="error">@(!String.IsNullOrEmpty(ViewBag.StatusCode) ? ViewBag.StatusCode : "500 Error"):</h1>
+<h1 class="error">@Model.StatusCode</h1>
 
-//@Model.ActionName
-//@Model.ControllerName
-//@Model.Exception.Message
-//@Model.Exception.StackTrace
+@Model.StatusDescription<br/>
+@Model.Message
