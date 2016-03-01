@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Net;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -17,7 +15,7 @@ using UseCases;
 
 namespace Gui
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
 
