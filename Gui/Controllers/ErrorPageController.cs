@@ -13,7 +13,8 @@ namespace Gui.Controllers
             {
                 StatusCode = statusCode.ToString() + " error",
                 StatusDescription = HttpWorkerRequest.GetStatusDescription(statusCode),
-                Message = exception.Message
+                Message = exception.Message,
+                DateTime = DateTime.Now
             };
             return View(error);
         }
