@@ -11,6 +11,12 @@ namespace Common
     {
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
+        public LogAttribute()
+        {
+            AspectPriority = 20;
+            ApplyToStateMachine = false;
+        }
+
         public override void OnEntry(MethodExecutionArgs args)
         {
             log.Debug("Entering {0}.{1}({2})", args.Method.DeclaringType.Name, args.Method.Name, DisplayObjectInfo(args));
