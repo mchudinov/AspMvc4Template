@@ -7,7 +7,7 @@ namespace Common
     [Serializable]
     public class LogExceptionAttribute : OnExceptionAspect
     {
-        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         public LogExceptionAttribute()
         {
@@ -17,7 +17,7 @@ namespace Common
 
         public override void OnException(MethodExecutionArgs args)
         {
-            log.Error("Exception {0} in {1}.{2}()", args.Exception, args.Method.DeclaringType.Name, args.Method.Name);
+            Log.Error($"Exception {args.Exception} in {args.Method.DeclaringType?.Name}.{args.Method.Name}()");
         }
     }
 }

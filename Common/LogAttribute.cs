@@ -9,7 +9,7 @@ namespace Common
     [Serializable]
     public class LogAttribute : OnMethodBoundaryAspect
     {
-        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         public LogAttribute()
         {
@@ -19,12 +19,12 @@ namespace Common
 
         public override void OnEntry(MethodExecutionArgs args)
         {
-            log.Debug("Entering {0}.{1}({2})", args.Method.DeclaringType.Name, args.Method.Name, DisplayObjectInfo(args));
+            Log.Debug($"Entering {args.Method.DeclaringType?.Name}.{args.Method.Name}({DisplayObjectInfo(args)})");
         }
 
         public override void OnExit(MethodExecutionArgs args)
         {
-            log.Debug("Leaving {0}.{1}() Return value [{2}]", args.Method.DeclaringType.Name, args.Method.Name, args.ReturnValue);
+            Log.Debug($"Leaving {args.Method.DeclaringType?.Name}.{args.Method.Name}() Return value [{args.ReturnValue}]");
         }
 
         static string DisplayObjectInfo(MethodExecutionArgs args)
