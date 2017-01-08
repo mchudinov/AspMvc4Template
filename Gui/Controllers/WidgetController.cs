@@ -8,7 +8,7 @@ namespace Gui.Controllers
 {
     public class WidgetController : Controller
     {
-        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
         private readonly IWidgetCase _case;
 
         public WidgetController(IWidgetCase ucase)
@@ -39,7 +39,7 @@ namespace Gui.Controllers
             }
             catch (Exception e)
             {
-                _log.Error(e.Message);
+                Log.Error(e.Message);
                 return View(newWidget);
             }
         }

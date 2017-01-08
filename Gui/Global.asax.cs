@@ -17,7 +17,7 @@ namespace Gui
 {
     public class MvcApplication : HttpApplication
     {
-        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         protected void Application_Start()
         {
@@ -58,7 +58,7 @@ namespace Gui
                 {
                     err.Append($"Session: Identity name:[{Thread.CurrentPrincipal.Identity.Name}] IsAuthenticated:{Thread.CurrentPrincipal.Identity.IsAuthenticated}");
                 }
-                _log.Error(err.ToString());
+                Log.Error(err.ToString());
 
                 if (null != Context.Session)
                 {
@@ -86,7 +86,7 @@ namespace Gui
         protected void Session_Start(object sender, EventArgs e)
         {
             var identity = Thread.CurrentPrincipal.Identity;
-            _log.Info("Session_Start. Identity name:[{0}] IsAuthenticated:{1}", identity.Name, identity.IsAuthenticated);
+            Log.Info($"Session_Start. Identity name:[{identity.Name}] IsAuthenticated:{identity.IsAuthenticated}");
         }
 
         protected void Session_End(object sender, EventArgs e) {}

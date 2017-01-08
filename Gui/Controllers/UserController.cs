@@ -9,7 +9,7 @@ namespace Gui.Controllers
 {
     public class UserController : Controller
     {
-        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
         private readonly IUserCase _case;
 
         public UserController(IUserCase ucase)
@@ -46,7 +46,7 @@ namespace Gui.Controllers
             }
             catch (Exception e)
             {
-                _log.Error(e.Message);
+                Log.Error(e.Message);
                 return View(newUser);
             }
         }
